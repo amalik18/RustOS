@@ -1,0 +1,31 @@
+[package]
+name = "rust_os"
+version = "0.1.0"
+authors = ["Ali Malik <mikli@amazon.com>"]
+edition = "2018"
+description = "A simple Linux based operating system written in Rust."
+license = "MIT"
+
+# See more keys and their definitions at https://doc.rust-lang.org/cargo/reference/manifest.html
+
+[dependencies]
+bootloader = "0.9.8"
+volatile = "0.2.6"
+spin = "0.5.2"
+x86_64 = "0.14.2"
+
+[dependencies.lazy_static]
+version = "1.0"
+features = ["spin_no_std"]
+
+[package.metadata.bootimage]
+test-args = ["-device", "isa-debug-exit,iobase=0xf4,iosize=0x04"]
+
+# Profile for development aka `cargo build`, so we disable stack unwinding on panic
+#[profile.dev]
+#panic = "abort"
+
+# Profile for release aka `cargo build --release`, so we disable stack unwinding on panic
+#[profile.release]
+#panic = "abort"
+
